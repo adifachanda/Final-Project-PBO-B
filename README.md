@@ -7,7 +7,7 @@ Anggota Kelompok :
 
 Topik : Game Sederhana
 
-Game yang akan kami buat adalah Game Snake. Game Snake adalah sebuah permainan dimana pemain memainkan seekor ular yang memiliki sebuah tujuan untuk memakan makanan sebanyak - banyaknya tanpa menabrak tembok / dinding maupun diri sendiri
+Game yang akan kami buat adalah Snake Game. Snake Game adalah sebuah permainan dimana pemain memainkan seekor ular yang memiliki sebuah tujuan untuk memakan makanan sebanyak - banyaknya tanpa menabrak tembok / dinding maupun diri sendiri
 
 Fitur : 
 - Welcome Screen, Pilihan Level, dan Highscore        
