@@ -13,8 +13,8 @@ Game yang akan kami buat adalah Snake Game. Snake Game adalah sebuah permainan d
 Fitur : 
 - Welcome Screen, Pilihan Level, dan Highscore        
 - Pilihan Level sejumlah 3 : 
-1. Level 1
-2. Level 2
-3. Level 3
+1. Level 1      (Easy)
+2. Level 2      (Medium)
+3. Level 3      (Hard)
         
 Referensi : Java Snake Game : https://www.youtube.com/watch?v=bI6e6qjJ8JQ
