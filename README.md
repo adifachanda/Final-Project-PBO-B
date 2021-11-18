@@ -1,7 +1,7 @@
 # Final-Project-PBO-B
 Anggota Kelompok :
 1. Rycahaya Sri Hutomo              (5025201046)
-2. Adifa Widyadhani Chanda D'Layla  (5025201013)
+2. Adifa Widyadhani Chanda D  (5025201013)
 3. Wahyu Tri Saputro                (5025201217)
 4. Fachrendy Zulfikar Abdillah      (5025201018)
 
