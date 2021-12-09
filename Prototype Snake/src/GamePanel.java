@@ -1,5 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.*;
 import java.util.Random;
 
@@ -12,15 +17,18 @@ public class GamePanel extends JPanel implements ActionListener
 	static final int SCREEN_HEIGHT = 600;
 	static final int UNIT_SIZE = 25;
 	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-	static final int DELAY = 75;
+	static final int DELAY = 95;
 	final int x[] = new int[GAME_UNITS];
 	final int y[] = new int[GAME_UNITS];
 	int bodyParts = 6;
 	int applesEaten;
 	int appleX;
 	int appleY;
+	int rottenAppleX;
+	int rottenAppleY;
 	char direction = 'R';
 	boolean running = false;
+	private String highScore = "";
 	Timer timer;
 	Random random;
 	
@@ -64,6 +72,10 @@ public class GamePanel extends JPanel implements ActionListener
 			g.setColor(Color.red);
 			g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 			
+			//making rotten apple
+			g.setColor(Color.magenta);
+			g.fillOval(rottenAppleX, rottenAppleY, UNIT_SIZE, UNIT_SIZE);
+			
 			//making body of the snake
 			for(int i = 0; i < bodyParts; i++)
 			{
@@ -81,8 +93,15 @@ public class GamePanel extends JPanel implements ActionListener
 				}
 			}
 			
+			/* buat ngecek highscore
+			if(applesEaten == 0)
+			{
+				//intialize the highscore
+				applesEaten = this.getHighscore();
+			}*/
+			
 			//draw scores
-			g.setColor(Color.red);
+			g.setColor(Color.white);
 			g.setFont(new Font("Arial", Font.BOLD, 40));
 			FontMetrics metrics = getFontMetrics(g.getFont());
 			g.drawString("Scores: " + applesEaten, 
@@ -100,6 +119,13 @@ public class GamePanel extends JPanel implements ActionListener
 		//spawning apple on random tiles
 		appleX = random.nextInt((int)(SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
 		appleY = random.nextInt((int)(SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+	}
+	
+	public void newRottenApple()
+	{
+		//spawning apple on random tiles
+		rottenAppleX = random.nextInt((int)(SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
+		rottenAppleY = random.nextInt((int)(SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
 	}
 	
 	public void move()
@@ -134,6 +160,15 @@ public class GamePanel extends JPanel implements ActionListener
 			bodyParts++;
 			applesEaten++;
 			newApple();
+		}
+	}
+	
+	public void checkRottenApple()
+	{
+		if((x[0] == rottenAppleX) && (y[0] == rottenAppleY))
+		{
+			running = false;
+			newRottenApple();
 		}
 	}
 	
@@ -179,13 +214,43 @@ public class GamePanel extends JPanel implements ActionListener
 				SCREEN_HEIGHT / 2);
 		
 		//scores text after game over
-		g.setColor(Color.red);
+		g.setColor(Color.white);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
 		FontMetrics metrics2 = getFontMetrics(g.getFont());
-		g.drawString("Total Scores: " + applesEaten, 
+		g.drawString("High Scores: " + applesEaten, 
 				(SCREEN_WIDTH - metrics2.stringWidth("Total Scores: " + applesEaten)) / 2, 
 				g.getFont().getSize());
 	}
+	
+	/*Bingung bikin highscore
+	public String getHighscore() //throws FileNotFoundException
+	{
+		FileReader readFile = null;
+		BufferedReader reader = null;
+		
+		try
+		{
+			readFile = new FileReader("highscore.dat");
+			reader = new BufferedReader(readFile);
+			return reader.readLine();
+		}
+		catch(Exception e)
+		{
+			return "0";
+		}
+		finally
+		{
+			try
+			{
+				if(reader != null)
+					reader.close();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -194,6 +259,7 @@ public class GamePanel extends JPanel implements ActionListener
 		{
 			move();
 			checkApple();
+			checkRottenApple();
 			checkCollisions();
 		}
 		repaint();
